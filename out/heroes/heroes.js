@@ -1,4 +1,4 @@
-var module = angular.module('mySuperAwesomeApp', []);
+var module = angular.module('myHeroesApp', []);
 const HEROS = [
     { id: 11, name: 'Mr. Nice' },
     { id: 12, name: 'Narco' },
@@ -23,6 +23,6 @@ module.component('heros', {
     controllerAs: '$ctrl'
 });
 angular.element(document).ready(function () {
-    angular.bootstrap(document, ['mySuperAwesomeApp']);
+    angular.bootstrap(document, ['myHeroesApp']);
 });
 //# sourceMappingURL=heroes.js.map

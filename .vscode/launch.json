@@ -5,17 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "node",
+            "type": "edge",
             "request": "launch",
-            "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}\\src\\HelloWorld.ts",
-            "preLaunchTask": "tsc: build - tsconfig.json",
-            "outFiles": [
-                "${workspaceFolder}/out/**/*.js"
-            ]
-        }
+            "name": "Launch Edge - Heroes",
+            "url": "http://127.0.0.1:5500/src/heroes/heroes.html",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "edge",
+            "request": "launch",
+            "name": "Launch Edge - SuperHeroes",
+            "url": "http://127.0.0.1:5500/src/superheroes/superheroes.html",
+            "webRoot": "${workspaceFolder}"
+        },
     ]
 }

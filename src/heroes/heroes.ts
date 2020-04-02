@@ -1,4 +1,4 @@
-var module = angular.module('mySuperAwesomeApp', []);
+var module = angular.module('myHeroesApp', []);
 
 interface IHero {
   id: number;
@@ -31,5 +31,5 @@ module.component('heros', {
 });
 
 angular.element(document).ready(function() {
-  angular.bootstrap(document, ['mySuperAwesomeApp']);
+  angular.bootstrap(document, ['myHeroesApp']);
 });

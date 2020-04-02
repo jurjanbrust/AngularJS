@@ -20,7 +20,7 @@ const SUPERHEROS: ISuperHero[] = [
 
 class SuperHerosComponentController implements ng.IController {
 
-  public heros: IHero[];
+  public heros: ISuperHero[];
 
   constructor() {}
 
