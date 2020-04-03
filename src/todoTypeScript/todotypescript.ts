@@ -17,9 +17,13 @@ module TODO {
   ];
 
   export class TodoListController implements ng.IController {
-
+    
     todoText : string;
-    todos = TODOS;
+    todos : ITODO[];
+    
+    constructor() {
+      this.todos = TODOS;
+    }
 
     private addTodo(): void {
       this.todos.push({text:this.todoText, done:false});
