@@ -7,6 +7,13 @@
         {
             "type": "edge",
             "request": "launch",
+            "name": "Launch Edge - ToDo",
+            "url": "http://127.0.0.1:5500/src/todo/todo.html",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "edge",
+            "request": "launch",
             "name": "Launch Edge - Heroes",
             "url": "http://127.0.0.1:5500/src/heroes/heroes.html",
             "webRoot": "${workspaceFolder}"

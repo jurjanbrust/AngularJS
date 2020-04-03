@@ -1,5 +1,7 @@
 # AngularJS Sample project using Visual Studio Code and TypeScript
 
+See my [blogpost](https://jurjan.info/posts/programming/angularjs/superheroes/) for more information.
+
 ### Prerequisites
 1) Download and install [Visual Studio Code](https://code.visualstudio.com/)
 2) Download and install [NodeJS LTS](https://nodejs.org/en/download/)
@@ -19,7 +21,7 @@ npm install --save-dev @types/angular
 
 3) Create a 'src' and 'out' folder
 4) Create a 'superheroes.ts' and 'superheroes.html' file
-5) Copy the html and js into the files created in step 5
+5) Copy the html and js into the files created in step above
 6) Press Ctrl+Shift+P and execute:
 
 ![](img/2020-04-02-11-44-00.png)
