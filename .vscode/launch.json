@@ -7,6 +7,13 @@
         {
             "type": "edge",
             "request": "launch",
+            "name": "Launch Edge - ToDo TypeScript",
+            "url": "http://127.0.0.1:5500/src/todoTypeScript/todotypescript.html",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "edge",
+            "request": "launch",
             "name": "Launch Edge - ToDo",
             "url": "http://127.0.0.1:5500/src/todo/todo.html",
             "webRoot": "${workspaceFolder}"

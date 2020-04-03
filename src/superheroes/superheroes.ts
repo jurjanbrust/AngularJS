@@ -1,4 +1,4 @@
-var module = angular.module('superHeroesApp', []);
+var module = angular.module('superHeroesModule', []);
 
 interface ISuperHero {
   id: number;
@@ -47,9 +47,9 @@ class SuperHerosComponent implements ng.IComponentOptions {
 }
 
 angular
-  .module("mySuperAwesomeApp", [])
+  .module("superHeroesApp", [])
   .component("superheros", new SuperHerosComponent());
 
 angular.element(document).ready(function() {
-  angular.bootstrap(document, ["mySuperAwesomeApp"]);
+  angular.bootstrap(document, ["superHeroesApp"]);
 });

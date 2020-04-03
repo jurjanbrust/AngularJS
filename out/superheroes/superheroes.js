@@ -1,4 +1,4 @@
-var module = angular.module('superHeroesApp', []);
+var module = angular.module('superHeroesModule', []);
 const SUPERHEROS = [
     { id: 11, name: 'Mr. Nice' },
     { id: 12, name: 'Narco' },
@@ -29,9 +29,9 @@ class SuperHerosComponent {
     }
 }
 angular
-    .module("mySuperAwesomeApp", [])
+    .module("superHeroesApp", [])
     .component("superheros", new SuperHerosComponent());
 angular.element(document).ready(function () {
-    angular.bootstrap(document, ["mySuperAwesomeApp"]);
+    angular.bootstrap(document, ["superHeroesApp"]);
 });
 //# sourceMappingURL=superheroes.js.map
