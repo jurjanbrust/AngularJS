@@ -1,0 +1,21 @@
+<!doctype html>
+
+<html data-ng-app="people">
+  <head>
+    <script src="/node_modules/angular/angular.min.js"></script>
+    <script src="/out/people/people.js"></script>
+  </head>
+
+  <body>
+    <h2>List of peoples</h2>
+    <div data-ng-controller="PeopleController as people">
+      <p>{{error}}</p>
+      <div>
+          <div>Name: {{people.person.name}}</div>
+          <div>
+            <img data-ng-src="{{people.person.avatar_url" title="{{people.person.name}}"/>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>

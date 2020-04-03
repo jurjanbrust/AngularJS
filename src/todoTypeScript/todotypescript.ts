@@ -1,4 +1,4 @@
-// module TODO { } makes sura that this does is not stored in the 'global namespace'. 
+// module TODO { } makes sure that this does is not stored in the 'global namespace'. 
 // TypeScript will convert this to an IFFY (IIFE = Immediately Invoked Function Expression).
 
 module TODO {

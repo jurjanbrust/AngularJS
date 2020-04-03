@@ -1,4 +1,4 @@
-// module TODO { } makes sure that this does is not stored in the 'global namespace'. 
+// module TODO { } makes sura that this does is not stored in the 'global namespace'. 
 // TypeScript will convert this to an IFFY (IIFE = Immediately Invoked Function Expression).
 var TODO;
 (function (TODO) {
@@ -36,4 +36,4 @@ var TODO;
     // add the controller to this module, function must be last item in array below.
     module.controller("TodoListController", ["$scope", "$http", TodoListController]);
 })(TODO || (TODO = {}));
-//# sourceMappingURL=todotypescript.js.map
+//# sourceMappingURL=people.js.map
