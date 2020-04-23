@@ -17,33 +17,38 @@ module PEOPLE {
       this.http = $http;
       this.scope = $scope;
       this.person = this.getPeople();
+      this.error = "welkom";
     }
 
     private async getPeople(): Promise<void> {
-      //https://stackoverflow.com/questions/33851786/why-this-is-undefined-in-typescript-module-with-http-promise
-      //https://docs.angularjs.org/api/ng/service/$http
-      //this.http.get<any>("https://api.github.com/users/jurjanbrust").then(this.onUserComplete, this.onError);
 
-      let usingAwait: boolean = false;
+      let usingAwait: boolean = true;
       if (!usingAwait) {
         // using the promise method
         this.http.get<any>("https://api.github.com/users/jurjanbrust").then(
           (response) => {
             this.person = response.data;
+            this.error = "Alles ok (promise)";
+            console.log(this.person);
           },
           (error) => {
             this.error = "Fout bij ophalen gegevens: " + error.status + " " + error.data.message;
             console.log(error);
           }
-        );
+        ).catch((err:Error) => {
+          this.error = "Enorme fout";
+          console.log(err);
+        });
       } else {
         // using the new await method
         var response = await this.http.get<any>(
           "https://api.github.com/users/jurjanbrust"
         );
         this.person = response.data;
+        this.error = "Alles ok (await)";
+        console.log(this.person);
+        this.scope.$applyAsync();
       }
-      console.log(this.person);
     }
   }
 
