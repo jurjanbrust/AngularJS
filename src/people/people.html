@@ -8,12 +8,15 @@
 
   <body>
     <h2>List of peoples</h2>
-    <div data-ng-controller="PeopleController as people">
+    <div data-ng-controller="PeopleController as controller">
       <p>{{error}}</p>
       <div>
-          <div>Name: {{people.person.name}}</div>
+          <div>Name: {{controller.person.name}}</div>
           <div>
-            <img data-ng-src="{{people.person.avatar_url}}" title="{{people.person.name}}"/>
+            <img data-ng-src="{{controller.person.avatar_url}}" title="{{controller.person.name}}"/>
+            <!-- data-ng-src is nodig, omdat je anders een foutmelding krijgt bij het laden van de pagina omdat angular nog niet gelijk aktief is (javascript komt altijd later in aktie)
+                Omdat de browser dan deze person.person.avatar_url binding-expressie ziet probeert hij dat te laden (wat dus niet lukt)
+                data-ng-src zorgt ervoor dat deze foutmelding verdwijnt -->
           </div>
         </div>
     </div>
