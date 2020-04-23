@@ -19,16 +19,31 @@ module PEOPLE {
       this.person = this.getPeople();
     }
 
-    private getPeople(): void {
-      // https://stackoverflow.com/questions/33851786/why-this-is-undefined-in-typescript-module-with-http-promise
-      // https://docs.angularjs.org/api/ng/service/$http
-      // this.http.get<any>("https://api.github.com/users/jurjanbrust").then(this.onUserComplete, this.onError);
-      this.http
-        .get<any>("https://api.github.com/users/jurjanbrust")
-        .then(response => {
-          this.person = response.data;
-          console.log(this.person);
-        });
+    private async getPeople(): Promise<void> {
+      //https://stackoverflow.com/questions/33851786/why-this-is-undefined-in-typescript-module-with-http-promise
+      //https://docs.angularjs.org/api/ng/service/$http
+      //this.http.get<any>("https://api.github.com/users/jurjanbrust").then(this.onUserComplete, this.onError);
+
+      let usingAwait: boolean = false;
+      if (!usingAwait) {
+        // using the promise method
+        this.http.get<any>("https://api.github.com/users/jurjanbrust").then(
+          (response) => {
+            this.person = response.data;
+          },
+          (error) => {
+            this.error = "Fout bij ophalen gegevens: " + error.status + " " + error.data.message;
+            console.log(error);
+          }
+        );
+      } else {
+        // using the new await method
+        var response = await this.http.get<any>(
+          "https://api.github.com/users/jurjanbrust"
+        );
+        this.person = response.data;
+      }
+      console.log(this.person);
     }
   }
 
