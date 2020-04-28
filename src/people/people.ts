@@ -9,6 +9,7 @@ module PEOPLE {
 
   export class PeopleController implements ng.IController {
     person: any;
+    mode: string;
     http: ng.IHttpService;
     error: string;
     scope: ng.IScope;
@@ -16,14 +17,24 @@ module PEOPLE {
     constructor($scope: ng.IScope, $http: ng.IHttpService) {
       this.http = $http;
       this.scope = $scope;
-      this.person = this.getPeople();
       this.error = "welkom";
+      this.mode = "Await";
+
+      this.person = this.getPeople();
     }
 
     private async getPeople(): Promise<void> {
 
-      let usingAwait: boolean = true;
-      if (!usingAwait) {
+      if (this.mode === "Await") {
+        // using the new await method
+        var response = await this.http.get<any>(
+          "https://api.github.com/users/jurjanbrust"
+        );
+        this.person = response.data;
+        this.error = "Alles ok (await)";
+        console.log(this.person);
+        this.scope.$applyAsync();        
+      } else {
         // using the promise method
         this.http.get<any>("https://api.github.com/users/jurjanbrust").then(
           (response) => {
@@ -39,15 +50,6 @@ module PEOPLE {
           this.error = "Enorme fout";
           console.log(err);
         });
-      } else {
-        // using the new await method
-        var response = await this.http.get<any>(
-          "https://api.github.com/users/jurjanbrust"
-        );
-        this.person = response.data;
-        this.error = "Alles ok (await)";
-        console.log(this.person);
-        this.scope.$applyAsync();
       }
     }
   }

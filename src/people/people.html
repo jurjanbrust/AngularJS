@@ -7,11 +7,22 @@
   </head>
 
   <body>
-    <h2>List of peoples</h2>
+    <h2>Github people</h2>
     <div data-ng-controller="PeopleController as controller">
-      <p>{{controller.error}}</p>
       <div>
-          <div>Name: {{controller.person.name}}</div>
+        <form name="selectMode" data-ng-submit="controller.getPeople()">
+          <label for="options">Choose http method:</label>
+          <select name="options" data-ng-model="controller.mode">      
+            <option>Await</option>
+            <option>Promise</option>
+          </select>
+          <input type="submit"/>
+        </form>
+      </div>
+      <p>Status: <b>{{controller.error}}</b></p>
+      <br>
+      <div>
+          <div>Name: <b>{{controller.person.name}}</b></div>
           <div>
             <img data-ng-src="{{controller.person.avatar_url}}" title="{{controller.person.name}}"/>
             <!-- data-ng-src is nodig, omdat je anders een foutmelding krijgt bij het laden van de pagina omdat angular nog niet gelijk aktief is (javascript komt altijd later in aktie)

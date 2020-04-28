@@ -18,13 +18,21 @@ var PEOPLE;
         constructor($scope, $http) {
             this.http = $http;
             this.scope = $scope;
-            this.person = this.getPeople();
             this.error = "welkom";
+            this.mode = "Await";
+            this.person = this.getPeople();
         }
         getPeople() {
             return __awaiter(this, void 0, void 0, function* () {
-                let usingAwait = true;
-                if (!usingAwait) {
+                if (this.mode === "Await") {
+                    // using the new await method
+                    var response = yield this.http.get("https://api.github.com/users/jurjanbrust");
+                    this.person = response.data;
+                    this.error = "Alles ok (await)";
+                    console.log(this.person);
+                    this.scope.$applyAsync();
+                }
+                else {
                     // using the promise method
                     this.http.get("https://api.github.com/users/jurjanbrust").then((response) => {
                         this.person = response.data;
@@ -37,14 +45,6 @@ var PEOPLE;
                         this.error = "Enorme fout";
                         console.log(err);
                     });
-                }
-                else {
-                    // using the new await method
-                    var response = yield this.http.get("https://api.github.com/users/jurjanbrust");
-                    this.person = response.data;
-                    this.error = "Alles ok (await)";
-                    console.log(this.person);
-                    this.scope.$applyAsync();
                 }
             });
         }
