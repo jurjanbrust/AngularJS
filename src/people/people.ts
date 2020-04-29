@@ -9,45 +9,74 @@ module PEOPLE {
 
   export class PeopleController implements ng.IController {
     person: any;
+    repos: any;
     mode: string;
+    username: string;
     http: ng.IHttpService;
+    interval: ng.IIntervalService;
     error: string;
     scope: ng.IScope;
+    count: number;
 
-    constructor($scope: ng.IScope, $http: ng.IHttpService) {
+    constructor($scope: ng.IScope, $http: ng.IHttpService, $interval: ng.IIntervalService) {
       this.http = $http;
+      this.interval = $interval;
       this.scope = $scope;
-      this.error = "welkom";
+      this.error = "No error";
       this.mode = "Await";
-
+      this.username = "angular";
       this.person = this.getPeople();
+      this.startCountDown();
+    }
+
+    private startCountDown(): void {
+      this.count = 5;
+      this.interval(this.decrementCountdown, 1000, this.count);
+    }
+
+    private decrementCountdown(): void {
+      // todo: this. is undefined here and only god knows why
+      this.count = this.count - 1;
+      if(this.count < 1) {
+        this.getPeople()
+      }
     }
 
     private async getPeople(): Promise<void> {
 
       if (this.mode === "Await") {
         // using the new await method
+
+        // get the user
         var response = await this.http.get<any>(
-          "https://api.github.com/users/jurjanbrust"
+          "https://api.github.com/users/" + this.username
         );
         this.person = response.data;
-        this.error = "Alles ok (await)";
+
+        // get the repositories
+        var response = await this.http.get<any>(
+          this.person.repos_url
+        );
+        this.repos = response.data;
+
+        this.error = "Ok using the await method";
         console.log(this.person);
-        this.scope.$applyAsync();        
+        this.scope.$applyAsync();    // AngularJS needs to get a signal that the model has changed.    
       } else {
         // using the promise method
-        this.http.get<any>("https://api.github.com/users/jurjanbrust").then(
+        this.http.get<any>("https://api.github.com/users/" + this.username).then(
           (response) => {
             this.person = response.data;
-            this.error = "Alles ok (promise)";
+            this.error = "Ok using the promise method";
+            this.repos = "";  // not implemented, so leave empty
             console.log(this.person);
           },
           (error) => {
-            this.error = "Fout bij ophalen gegevens: " + error.status + " " + error.data.message;
+            this.error = "Error getting data: " + error.status + " " + error.data.message;
             console.log(error);
           }
         ).catch((err:Error) => {
-          this.error = "Enorme fout";
+          this.error = "Huge error";
           console.log(err);
         });
       }
@@ -55,5 +84,5 @@ module PEOPLE {
   }
 
   // add the controller to this module, function must be last item in array below.
-  module.controller("PeopleController", ["$scope", "$http", PeopleController]);
+  module.controller("PeopleController", ["$scope", "$http", "$interval", PeopleController]);
 }

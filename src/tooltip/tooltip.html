@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office"
+    xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>29533-Lactose</title>
+    <meta name="Generator" content="PowerTools for Open XML" />
+    <style>
+        span {
+            white-space: pre-wrap;
+        }
+
+        p span:first-child[class^=\"pt-0\"] {
+            width: 24px;
+            display: inline-block;
+        }
+
+        p.pt-Normal {
+            line-height: 107.9%;
+            margin-bottom: 8pt;
+            font-family: Calibri;
+            font-size: 11pt;
+            margin-top: 0;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        span.pt-DefaultParagraphFont {
+            font-family: Calibri;
+            font-size: 11pt;
+            font-style: normal;
+            font-weight: normal;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Popup container - can be anything you want */
+        .popup {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        }
+
+        /* The actual popup */
+        .popup .popuptext {
+        visibility: hidden;
+        width: 160px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -80px;
+        }
+
+        /* Popup arrow */
+        .popup .popuptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+        }
+
+        /* Toggle this class - hide and show the popup */
+        .popup .show {
+        visibility: visible;
+        -webkit-animation: fadeIn 1s;
+        animation: fadeIn 1s;
+        }
+
+        /* Add animation (fade in the popup) */
+        @-webkit-keyframes fadeIn {
+        from {opacity: 0;} 
+        to {opacity: 1;}
+        }
+
+        @keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity:1 ;}
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script lang="Javascript">
+        function setTooltip(itemId, htmlElement) {
+            /*
+            var context = new SP.ClientContext.get_current();
+            var rootWeb = context.get_site().get_rootWeb();
+            var list = context.get_site().get_rootWeb().get_lists().getByTitle('Tooltips')
+            var item = list.getItemById(itemId);
+             context.load(item);
+             context.executeQueryAsync(function () {
+                 var text = item.get_item("Tekst");
+                 var url = item.get_item("DoelURL").get_url();
+                 
+                 htmlElement.prop('title', text);
+                 htmlElement.prop('href', url);
+             }, function () { });
+             */
+            var tooltipTekst = '<div class="ExternalClass56C83AA5A2CF407EAD21A21A71080721"><p>Dit is een <span class="ms-rteThemeForeColor-9-0">tooltip </span>tekst</p></div>';
+            var html = "<div id='toggle' class='popup' onclick='myFunction()'>" + tooltipTekst + "</div>"
+
+            //htmlElement.prop('title', html);
+            htmlElement.after(html);
+        }
+
+        function start() {
+            var documentText = $("#WRTekst a[target!='_blank']"); // todo; selector strikter maken, dat deze alleen linkjes naar de Tooltip bieb oppakt
+            documentText.each(function (index) {
+                itemId = $(this).attr('href').split('?ID=')[1];
+                if (itemId) {
+                    setTooltip(itemId, $(this));
+                }
+            });
+        }
+
+        function myFunction() {
+            var popup = document.getElementById("myPopup");
+            popup.classList.toggle("show");
+        }
+</script>
+</head>
+
+<body onload="start();">
+    <div class="keywords-hidden" xmlns="">span
+        width
+        normal
+        margin
+        calibri
+        padding
+        pre-wrap
+        font-size
+        dfsdfsfdg
+        ppt-normal
+        margin-top
+        font-style
+        white-space
+        line-height
+        font-family
+        margin-left
+        font-weight
+        margin-right
+        margin-bottom
+        displayinline-block
+        spanfirst-childclasspt-
+        spanpt-defaultparagraphfont</div>
+    <style xmlns="">
+        .keywords-hidden {
+            display: none;
+        }
+    </style>
+
+    <div id="WRTekst">
+        <p dir="ltr" class="pt-Normal"><span class="pt-DefaultParagraphFont">Test</span></p>
+        <p dir="ltr" class="pt-Normal"><span class="pt-DefaultParagraphFont">Dit is een in Word gemaakte tooltip
+            </span><a href="http://broken-link/"><span class="pt-Hyperlink">linkje</span></a></p>
+        <p dir="ltr" class="pt-Normal"><span class="pt-DefaultParagraphFont">Dit is een naar SharePoint leerskanaal
+                lijst wijzende </span><a
+                href="https://content.sp16-o.rdw.dev.infosupport.net/sites/kb-jurjan/Lists/Tooltips/DispForm.aspx?ID=1"><span
+                    class="pt-Hyperlink">linkje</span></a></p>
+        <p dir="ltr" class="pt-Normal"><span class="pt-DefaultParagraphFont">Lorem upsio</span></p>
+
+        <br>
+
+        <a href="https://content.sp16-o.rdw.dev.infosupport.net/sites/kb-jurjan/Lists/Tooltips/DispForm.aspx?ID=1">
+            <span class="pt-Hyperlink" onmouseover='myFunction()'>TEST</span>
+        </a>
+        
+        <br>
+
+
+        <div class="popup" onclick="myFunction()">Click me to toggle the popup!
+            <span class="popuptext" id="myPopup"><div class="ExternalClass56C83AA5A2CF407EAD21A21A71080721"><p>Dit is een <span class="ms-rteThemeForeColor-9-0">tooltip </span>tekst</p><p>nog <b>een</b> regel!</p><p><h3>jurjan</h3></p></div></span>
+        </div>
+
+    </div>
+</body>
+
+</html>
