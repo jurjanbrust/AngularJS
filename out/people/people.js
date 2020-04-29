@@ -9,44 +9,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var app = angular.module("people", []);
 var PEOPLE;
 (function (PEOPLE) {
     "use strict";
     // Create a module using the name todoApp : use the same name as in ng-app="todoApp"
-    var module = angular.module("people", []);
     class PeopleController {
-        constructor($scope, $http, $interval) {
+        constructor($scope, $http, gitHubService) {
             this.http = $http;
-            this.interval = $interval;
+            this.gitHubService = gitHubService;
             this.scope = $scope;
             this.error = "No error";
             this.mode = "Await";
             this.username = "angular";
             this.person = this.getPeople();
-            this.startCountDown();
-        }
-        startCountDown() {
-            this.count = 5;
-            this.interval(this.decrementCountdown, 1000, this.count);
-        }
-        decrementCountdown() {
-            // todo: this. is undefined here and only god knows why
-            this.count = this.count - 1;
-            if (this.count < 1) {
-                this.getPeople();
-            }
         }
         getPeople() {
             return __awaiter(this, void 0, void 0, function* () {
                 if (this.mode === "Await") {
-                    // using the new await method
-                    // get the user
-                    var response = yield this.http.get("https://api.github.com/users/" + this.username);
-                    this.person = response.data;
-                    // get the repositories
-                    var response = yield this.http.get(this.person.repos_url);
-                    this.repos = response.data;
-                    this.error = "Ok using the await method";
+                    this.person = yield this.gitHubService.getUser(this.username);
+                    this.repos = yield this.gitHubService.getRepos(this.person);
+                    this.error = "Ok using the await and service method";
                     console.log(this.person);
                     this.scope.$applyAsync(); // AngularJS needs to get a signal that the model has changed.    
                 }
@@ -54,7 +37,7 @@ var PEOPLE;
                     // using the promise method
                     this.http.get("https://api.github.com/users/" + this.username).then((response) => {
                         this.person = response.data;
-                        this.error = "Ok using the promise method";
+                        this.error = "Ok using the promise method (only user profile, no repos)";
                         this.repos = ""; // not implemented, so leave empty
                         console.log(this.person);
                     }, (error) => {
@@ -69,7 +52,7 @@ var PEOPLE;
         }
     }
     PEOPLE.PeopleController = PeopleController;
-    // add the controller to this module, function must be last item in array below.
-    module.controller("PeopleController", ["$scope", "$http", "$interval", PeopleController]);
 })(PEOPLE || (PEOPLE = {}));
+// add the controller to this module, function must be last item in array below.
+app.controller("PeopleController", ["$scope", "$http", "gitHubService", PEOPLE.PeopleController]);
 //# sourceMappingURL=people.js.map

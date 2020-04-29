@@ -95,26 +95,16 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script lang="Javascript">
-        function setTooltip(itemId, htmlElement) {
-            /*
-            var context = new SP.ClientContext.get_current();
-            var rootWeb = context.get_site().get_rootWeb();
-            var list = context.get_site().get_rootWeb().get_lists().getByTitle('Tooltips')
-            var item = list.getItemById(itemId);
-             context.load(item);
-             context.executeQueryAsync(function () {
-                 var text = item.get_item("Tekst");
-                 var url = item.get_item("DoelURL").get_url();
-                 
-                 htmlElement.prop('title', text);
-                 htmlElement.prop('href', url);
-             }, function () { });
-             */
-            var tooltipTekst = '<div class="ExternalClass56C83AA5A2CF407EAD21A21A71080721"><p>Dit is een <span class="ms-rteThemeForeColor-9-0">tooltip </span>tekst</p></div>';
-            var html = "<div id='toggle' class='popup' onclick='myFunction()'>" + tooltipTekst + "</div>"
 
-            //htmlElement.prop('title', html);
-            htmlElement.after(html);
+        //anchorElement = a href
+        function setTooltip(index, itemId, anchorElement) {
+
+            var tooltipTekst = '<div class="ExternalClass56C83AA5A2CF407EAD21A21A71080721"><p>Het is gelukt <span class="ms-rteThemeForeColor-9-0">tooltip </span>tekst</p></div>';
+            var html = "<div class='popuptext' id='myPopup" + index + "'>" + tooltipTekst + "</div>"
+
+            anchorElement.addClass("popup");
+            anchorElement.hover(()=>showTooltip(index));
+            anchorElement.append(html);
         }
 
         function start() {
@@ -122,70 +112,60 @@
             documentText.each(function (index) {
                 itemId = $(this).attr('href').split('?ID=')[1];
                 if (itemId) {
-                    setTooltip(itemId, $(this));
+                    setTooltip(index, itemId, $(this));
                 }
             });
         }
 
-        function myFunction() {
-            var popup = document.getElementById("myPopup");
-            popup.classList.toggle("show");
+        function showTooltip(itemId) 
+        {
+            if(itemId) {
+                var popup = document.getElementById("myPopup" + itemId);
+                if(popup) {
+                    popup.classList.toggle("show");
+                }
+            }
         }
 </script>
 </head>
 
 <body onload="start();">
-    <div class="keywords-hidden" xmlns="">span
-        width
-        normal
-        margin
-        calibri
-        padding
-        pre-wrap
-        font-size
-        dfsdfsfdg
-        ppt-normal
-        margin-top
-        font-style
-        white-space
-        line-height
-        font-family
-        margin-left
-        font-weight
-        margin-right
-        margin-bottom
-        displayinline-block
-        spanfirst-childclasspt-
-        spanpt-defaultparagraphfont</div>
-    <style xmlns="">
-        .keywords-hidden {
-            display: none;
-        }
-    </style>
-
     <div id="WRTekst">
         <p dir="ltr" class="pt-Normal"><span class="pt-DefaultParagraphFont">Test</span></p>
         <p dir="ltr" class="pt-Normal"><span class="pt-DefaultParagraphFont">Dit is een in Word gemaakte tooltip
             </span><a href="http://broken-link/"><span class="pt-Hyperlink">linkje</span></a></p>
-        <p dir="ltr" class="pt-Normal"><span class="pt-DefaultParagraphFont">Dit is een naar SharePoint leerskanaal
-                lijst wijzende </span><a
-                href="https://content.sp16-o.rdw.dev.infosupport.net/sites/kb-jurjan/Lists/Tooltips/DispForm.aspx?ID=1"><span
-                    class="pt-Hyperlink">linkje</span></a></p>
+        <p dir="ltr" class="pt-Normal">
+            
+            <span class="pt-DefaultParagraphFont">Dit is een naar SharePoint leerskanaal lijst wijzende </span>
+                <a href="https://content.sp16-o.rdw.dev.infosupport.net/sites/kb-jurjan/Lists/Tooltips/DispForm.aspx?ID=1"><span
+                    class="pt-Hyperlink">linkje</span>
+                </a>
+                
+        </p>
         <p dir="ltr" class="pt-Normal"><span class="pt-DefaultParagraphFont">Lorem upsio</span></p>
 
         <br>
 
         <a href="https://content.sp16-o.rdw.dev.infosupport.net/sites/kb-jurjan/Lists/Tooltips/DispForm.aspx?ID=1">
-            <span class="pt-Hyperlink" onmouseover='myFunction()'>TEST</span>
+            <span class="pt-Hyperlink">TEST VAN EEN LINKJE NAAR KB</span>
         </a>
         
         <br>
+        <br>
+        <br>
 
-
-        <div class="popup" onclick="myFunction()">Click me to toggle the popup!
-            <span class="popuptext" id="myPopup"><div class="ExternalClass56C83AA5A2CF407EAD21A21A71080721"><p>Dit is een <span class="ms-rteThemeForeColor-9-0">tooltip </span>tekst</p><p>nog <b>een</b> regel!</p><p><h3>jurjan</h3></p></div></span>
+        <!-- <div class="popup" onmouseover="showTooltip(10)" onmouseout="showTooltip(10)">Click me to toggle the popup!
+            <span class="popuptext" id="myPopup10"><div class="ExternalClass56C83AA5A2CF407EAD21A21A71080721"><p>Dit is een <span class="ms-rteThemeForeColor-9-0">tooltip </span>tekst</p><p>nog <b>een</b> regel!</p><p><h3>jurjan</h3></p></div></span>
         </div>
 
+        <div class="popup" onmouseover="showTooltip(20)" onmouseout="showTooltip(20)">Click me to toggle the popup!
+            <span class="popuptext" id="myPopup20"><div class="ExternalClass56C83AA5A2CF407EAD21A21A71080721"><p>Dit is een <span class="ms-rteThemeForeColor-9-0">tooltip </span>tekst</p><p>nog <b>een</b> regel!</p><p><h3>jurjan</h3></p></div></span>
+        </div> -->
+
+        <a class="popup" onmouseover="showTooltip(30)" href="https://content.sp16-o.rdw.dev.infosupport.net/sites/kb-jurjan/Lists/ANDERE/DispForm.aspx?ID=1">
+            <span class="pt-Hyperlink">NBOG EEN TEST</span>
+            <span class="popuptext" id="myPopup30"><div class="ExternalClass56C83AA5A2CF407EAD21A21A71080721"><p>Dit is een <span class="ms-rteThemeForeColor-9-0">tooltip </span>tekst</p><p>nog <b>een</b> regel!</p><p><h3>jurjan</h3></p></div></span>
+        </a>
     </div>
 </body>
 

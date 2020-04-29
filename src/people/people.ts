@@ -1,11 +1,12 @@
 // module PEOPLE { } makes sure that this does is not stored in the 'global namespace'.
 // TypeScript will convert this to an IFFY (IIFE = Immediately Invoked Function Expression).
 
+var app: ng.IModule = angular.module("people", []);
+
 module PEOPLE {
   "use strict";
 
   // Create a module using the name todoApp : use the same name as in ng-app="todoApp"
-  var module: ng.IModule = angular.module("people", []);
 
   export class PeopleController implements ng.IController {
     person: any;
@@ -14,52 +15,28 @@ module PEOPLE {
     username: string;
     http: ng.IHttpService;
     interval: ng.IIntervalService;
+    gitHubService: gitHubService;
     error: string;
     scope: ng.IScope;
     count: number;
 
-    constructor($scope: ng.IScope, $http: ng.IHttpService, $interval: ng.IIntervalService) {
+    constructor($scope: ng.IScope, $http: ng.IHttpService, gitHubService) {
       this.http = $http;
-      this.interval = $interval;
+      this.gitHubService = gitHubService;
       this.scope = $scope;
       this.error = "No error";
       this.mode = "Await";
       this.username = "angular";
       this.person = this.getPeople();
-      this.startCountDown();
-    }
-
-    private startCountDown(): void {
-      this.count = 5;
-      this.interval(this.decrementCountdown, 1000, this.count);
-    }
-
-    private decrementCountdown(): void {
-      // todo: this. is undefined here and only god knows why
-      this.count = this.count - 1;
-      if(this.count < 1) {
-        this.getPeople()
-      }
     }
 
     private async getPeople(): Promise<void> {
 
       if (this.mode === "Await") {
-        // using the new await method
+        this.person = await this.gitHubService.getUser(this.username);
+        this.repos = await this.gitHubService.getRepos(this.person);
 
-        // get the user
-        var response = await this.http.get<any>(
-          "https://api.github.com/users/" + this.username
-        );
-        this.person = response.data;
-
-        // get the repositories
-        var response = await this.http.get<any>(
-          this.person.repos_url
-        );
-        this.repos = response.data;
-
-        this.error = "Ok using the await method";
+        this.error = "Ok using the await and service method";
         console.log(this.person);
         this.scope.$applyAsync();    // AngularJS needs to get a signal that the model has changed.    
       } else {
@@ -67,7 +44,7 @@ module PEOPLE {
         this.http.get<any>("https://api.github.com/users/" + this.username).then(
           (response) => {
             this.person = response.data;
-            this.error = "Ok using the promise method";
+            this.error = "Ok using the promise method (only user profile, no repos)";
             this.repos = "";  // not implemented, so leave empty
             console.log(this.person);
           },
@@ -82,7 +59,7 @@ module PEOPLE {
       }
     }
   }
-
-  // add the controller to this module, function must be last item in array below.
-  module.controller("PeopleController", ["$scope", "$http", "$interval", PeopleController]);
 }
+
+// add the controller to this module, function must be last item in array below.
+app.controller("PeopleController", ["$scope", "$http","gitHubService", PEOPLE.PeopleController]);
