@@ -15,6 +15,8 @@ See my [blogpost](https://jurjan.info/posts/programming/angularjs/superheroes/) 
 npm install --save-dev typescript
 npm install --save-dev angular
 npm install --save-dev @types/angular
+npm install --save-dev angular-route
+npm install --save-dev @types/angular-route
 ```
 
 ![](img/2020-04-02-11-34-33.png)

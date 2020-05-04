@@ -3,8 +3,8 @@
 <html data-ng-app="people">
   <head>
     <script src="/node_modules/angular/angular.min.js"></script>
-    <script src="/out/people/people.js"></script>
-    <script src="/out/people/githubService.js"></script>
+    <script src="/out/githubPeople/people.js"></script>
+    <script src="/out/githubPeople/githubService.js"></script>
   </head>
 
   <body>
@@ -36,7 +36,7 @@
         </div>
         <br>
         <!-- It is possible to divide html over serveral files as show below -->
-        <div data-ng-include="'/src/people/repos.html'" data-ng-show="controller.repos"> <!-- ng-show: only show when model has a value (checked on truthiness)-->
+        <div data-ng-include="'/src/githubPeople/repos.html'" data-ng-show="controller.repos"> <!-- ng-show: only show when model has a value (checked on truthiness)-->
       </div>
   </body>
 </html>

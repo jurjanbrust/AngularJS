@@ -7,7 +7,9 @@
     "@types/angular": "^1.6.57"
   },
   "devDependencies": {
+    "@types/angular-route": "^1.7.1",
     "angular": "^1.7.9",
+    "angular-route": "^1.7.9",
     "typescript": "^3.8.3"
   },
   "scripts": {
