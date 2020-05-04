@@ -1,8 +1,5 @@
 // module PEOPLE { } makes sure that this does is not stored in the 'global namespace'.
 // TypeScript will convert this to an IFFY (IIFE = Immediately Invoked Function Expression).
-
-var app: ng.IModule = angular.module("people", []);
-
 module PEOPLE {
   "use strict";
 

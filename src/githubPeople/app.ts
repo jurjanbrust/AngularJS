@@ -1,0 +1,1 @@
+var app: ng.IModule = angular.module("people", []);
