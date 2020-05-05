@@ -1,0 +1,27 @@
+<div data-ng-controller="UserController as controller">
+    <p>Status: <b>{{controller.error}}</b></p>
+    <div>Name: <b>{{controller.person.name}}</b></div>
+    <div>
+        <img data-ng-src="{{controller.person.avatar_url}}" title="{{controller.person.name}}" />
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Stars</th>
+                <th>Language</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="repo in controller.repos | orderBy:'-stargazers_count'">
+                <td>{{repo.name}}</td>
+                <td>{{repo.stargazers_count | number}}</td>
+                <td>{{repo.language}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        <a href="#/main">Back to search</a>
+    </p>
+</div>

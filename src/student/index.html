@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="/node_modules/angular/angular.min.js"></script>
+    <script src="/node_modules/angular-route/angular-route.min.js"></script>
+</head>
+<body ng-app="ngRoutingDemo">
+    <h1>Angular Routing Demo</h1>
+
+    <div ng-view>
+
+    </div>
+    <script>
+        var app = angular.module('ngRoutingDemo', ['ngRoute']);
+
+        app.controller("loginController", function ($scope, $location) {
+           
+            $scope.authenticate = function (username) {
+                // write authentication code here.. 
+
+                $location.path('/src/student/student/' + username)
+            };
+
+        });
+
+        app.controller("studentController", function ($scope, $routeParams) {
+            $scope.username = $routeParams.username;
+        });
+
+        
+        app.config(function ($routeProvider) {
+             
+             $routeProvider.when('/', {
+                 templateUrl: '/src/student/login.html',
+                 controller: 'loginController'
+             }).when('/student/:username', {
+                 templateUrl: '/src/student/student.html',
+                 controller: 'studentController'
+             }).otherwise({
+                 redirectTo: "/"
+             });
+    });
+    </script>
+</body>
+</html>
