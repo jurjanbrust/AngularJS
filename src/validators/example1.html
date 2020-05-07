@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        AngularJs ng-pattern Form Validation Example
+    </title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript">
+        var app = angular.module('ngpatternApp', []);
+        app.controller('ngpatternCtrl', function ($scope) {
+            /* http://hwang.cisdept.cpp.edu/swanew/Text/Common-Regex.htm */
+            $scope.urlRegex = '^(https?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z]) *(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$={}#_]*)?$'
+            $scope.sendForm = function () {
+                $scope.msg = "Form Validated";
+            };
+        });
+    </script>
+</head>
+<body>
+    <div ng-app="ngpatternApp" ng-controller="ngpatternCtrl">
+        <h3>AngularJs ng-pattern Form Validation Example</h3>
+        <form name="urlForm" novalidate ng-submit="urlForm.$valid &&sendForm()">
+            URL:<input type="text" name="urlfield" ng-model="txtURL" ng-pattern="urlRegex" required />  <!-- 
+                                                                                                        add / to beginning and / end if regex is to be used directly here: e.g.
+                                                                                                        ng-pattern="/^(https?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z]) *(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$={}#_]*)?$/"
+                                                                                                        -->
+            <span style="color:Red" ng-show="urlForm.urlfield.$error.required"> Required! </span>
+            <span style="color:Red" ng-show="urlForm.urlfield.$dirty&&urlForm.urlfield.$error.pattern">Error</span>
+            <br /><br />
+            <button type="submit">Submit Form</button><br /><br />
+            <span>{{msg}}</span>
+        </form>
+        
+        <form name="personForm" novalidate ng-submit="personForm.$valid &&sendForm()">
+            Pin Code [0-9]{1,5}:<input type="text" name="pincode" ng-model="txtpin" ng-pattern="/^[0-9]{1,5}$/" required />
+            <span style="color:Red" ng-show="personForm.pincode.$error.required"> Required! </span>
+            <span style="color:Red" ng-show="personForm.pincode.$dirty&&personForm.pincode.$error.pattern">Only Numbers
+               Allowed, Maximum 5 Characters</span>
+            <br /><br />
+            <button type="submit">Submit Form</button><br /><br />
+            <span>{{msg}}</span>
+        </form>
+
+        <form name="postalForm" novalidate ng-submit="emailForm.$valid &&sendForm()">
+            Postcode:<input type="text" name="postal" ng-model="txtpostal" ng-pattern="/^[1-9]{1}[0-9]{3}([A-Z]{1,2})$/" required />
+            <span style="color:Red" ng-show="postalForm.postal.$error.required"> Required! </span>
+            <span style="color:Red" ng-show="postalForm.postal.$dirty&&postalForm.postal.$error.pattern">Error</span>
+            <br /><br />
+            <button type="submit">Submit Form</button><br /><br />
+            <span>{{msg}}</span>
+        </form>
+
+    </div>
+</body>
+</html>

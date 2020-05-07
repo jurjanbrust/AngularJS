@@ -3,5 +3,6 @@
         "\"**/*.js\": { \"when\": \"$(basename).ts\" },": true,
         "\"**/**.js\": { \"when\": \"$(basename).tsx\" }": true
     },
-    "typescript.tsdk": "node_modules\\typescript\\lib"
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "liveServer.settings.port": 5501
 }
